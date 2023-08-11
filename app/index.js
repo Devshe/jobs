@@ -12,6 +12,8 @@ import Nearbyjobs from "./../components/home/nearby/Nearbyjobs";
 
 const Home = () => {
   const router = useRouter();
+  const [searchTerm, setSearchTerm] = useState("");
+
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
       <Stack.Screen
@@ -21,13 +23,13 @@ const Home = () => {
           headerLeft: () => (
             <ScreenHeaderBtn iconUrl={icons.menu} dimension="60%" />
           ),
-          headerRight: () => (
-            <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
-          ),
-          //hide word index
+          // headerRight: () => (
+          //   <ScreenHeaderBtn iconUrl={images.profile} dimension="100%" />
+          // ),
           headerTitle: "",
         }}
       />
+
       <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
@@ -35,7 +37,16 @@ const Home = () => {
             padding: SIZES.medium,
           }}
         >
-          <Welcome />
+          <Welcome
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            handleClick={() => {
+              if (searchTerm) {
+                router.push(`/search/${searchTerm}`);
+              }
+            }}
+          />
+
           <Popularjobs />
           <Nearbyjobs />
         </View>
